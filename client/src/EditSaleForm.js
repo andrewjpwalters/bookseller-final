@@ -74,7 +74,7 @@ function EditSaleForm({ id, title, author, price, description, onUpdateSalesPost
                             onChange={(e) => setNewDescription(e.target.value)}
                         />
                     </div>
-                    <input className="btn btn-outline-dark mt-2" type="submit" value="Submit" />
+                    <input className="btn btn-outline-dark my-2" type="submit" value="Submit" />
                 </div>
                 {errors.map((err) => (
                     <Error key={err}>{err}</Error>

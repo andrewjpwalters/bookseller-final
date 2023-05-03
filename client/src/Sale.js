@@ -62,7 +62,7 @@ function Sale({
                 )}
                 {user.id === saleUser.id ? (
                     <>
-                        <Button variant="outline-dark" onClick={() => setIsEditing((isEditing) => !isEditing)}>
+                        <Button variant="outline-primary" onClick={() => setIsEditing((isEditing) => !isEditing)}>
                             {isEditing ? ("Cancel Edit") : ("Edit Sale")}
                         </Button>
                         <Button className="mx-2" variant="danger" onClick={handleDeleteSalesPost}>Delete Sale</Button>
