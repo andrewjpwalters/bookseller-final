@@ -2,7 +2,8 @@ import { useState, useEffect, useContext } from "react"
 import { Button } from "react-bootstrap"
 import { UserContext } from "./context/user"
 import { useParams } from "react-router-dom"
-import UpdateProfileForm from "./UpdateProfileForm"
+import UpdateBioForm from "./UpdateBioForm"
+import UpdatePhotoForm from "./UpdatePhotoForm"
 
 function Profile() {
     const [profileUser, setProfileUser] = useState(null)
@@ -34,11 +35,18 @@ function Profile() {
                                 {isEditing ? ("Cancel Edit") : ("Edit Profile")}
                             </Button>
                             {isEditing ? (
-                                <UpdateProfileForm
-                                    setIsEditing={setIsEditing}
-                                    setProfileUser={setProfileUser}
-                                    id={id}
-                                />
+                                <>
+                                    <UpdateBioForm
+                                        setIsEditing={setIsEditing}
+                                        setProfileUser={setProfileUser}
+                                        id={id}
+                                    />
+                                    <UpdatePhotoForm
+                                        setIsEditing={setIsEditing}
+                                        setProfileUser={setProfileUser}
+                                        id={id}
+                                    />
+                                </>
                             ) : (
                                 <></>
                             )}
