@@ -1,3 +1,14 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :username, :bio
+  include Rails.application.routes.url_helpers
+  attributes :id, :username, :bio, :image_url
+
+
+  def image_url
+    if object.image.attached?
+      url_for(object.image)
+    else
+      ""
+    end
+  end
+
 end

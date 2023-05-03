@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   
+  resources :users
   resources :conversations do
     resources :messages, only: [:index, :create]
   end
   resources :sales_posts
-  resources :users
 
+  patch '/profile/:id', to: 'users#update'
+  get '/profile/:id', to: 'users#show'
   post "/signup", to: "users#create"
   get "/me", to: "users#me"
   post "/login", to: "sessions#create"

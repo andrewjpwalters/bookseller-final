@@ -16,6 +16,17 @@ class UsersController < ApplicationController
         render json: {error: "User not found"}, status: :not_found
       end
     end
+
+    def update
+        user = User.find_by(id: params[:id])
+        return render json: {errors: "Not Authorized"}, status: :unauthorized unless user && user.id == @current_user&.id
+          
+        if user.update(user_params)
+          render json: user, status: :accepted
+        else
+          render json: {errors: "User not found"}, status: :not_found
+        end
+    end
   
     def me
       render json: @current_user

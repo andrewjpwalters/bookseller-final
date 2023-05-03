@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext } from "react"
+import { Button } from "react-bootstrap"
 import { UserContext } from "./context/user"
 import { useParams } from "react-router-dom"
 import UpdateProfileForm from "./UpdateProfileForm"
 
 function Profile() {
     const [profileUser, setProfileUser] = useState(null)
+    const [isEditing, setIsEditing] = useState(false)
     const { user } = useContext(UserContext)
     const { id } = useParams()
 
@@ -22,13 +24,32 @@ function Profile() {
                     {profileUser.id === user.id ? (
                         <>
                             <h1>Welcome, {profileUser.username}</h1>
-
-                            <UpdateProfileForm />
+                            {user.image_url ? (
+                                <img src={user.image_url} alt={user.username} />
+                            ) : (
+                                <></>
+                            )}
+                            <p>{user.bio}</p>
+                            <Button variant="outline-dark" onClick={() => setIsEditing((isEditing) => !isEditing)}>
+                                {isEditing ? ("Cancel Edit") : ("Edit Profile")}
+                            </Button>
+                            {isEditing ? (
+                                <UpdateProfileForm
+                                    setIsEditing={setIsEditing}
+                                    setProfileUser={setProfileUser}
+                                    id={id}
+                                />
+                            ) : (
+                                <></>
+                            )}
                         </>
                     ) : (
-                        <h1>{profileUser.username}</h1>
+                        <>
+                            <h1>{profileUser.username}</h1>
+                            <img src={profileUser.image_url} alt={profileUser.username} />
+                            <p>{profileUser.bio}</p>
+                        </>
                     )}
-                    <p>{user.bio}</p>
                 </>
             ) : (
                 <p>Loading...</p>
