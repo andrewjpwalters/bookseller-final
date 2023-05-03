@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :sales_post_tags
+  resources :tags
   resources :users
   resources :conversations do
     resources :messages, only: [:index, :create]
