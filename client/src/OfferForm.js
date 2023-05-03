@@ -26,16 +26,17 @@ function OfferForm({ sale, setShowForm }) {
     }
 
     return (
-        <>
+        <div className="text-left">
             <div className="mt-4">
-                <h2>Offer:</h2>
+                <h2>Offer</h2>
                 <form onSubmit={handleSubmit} className="row gy-2 gx-3 align-items-center">
                     <div className="form-group gap-2">
                         <div className="col-auto">
-                            <label htmlFor="content">Price</label>
-                            <input
+                            <label htmlFor="content">Message</label>
+                            <textarea
                                 type="text"
                                 id="content"
+                                rows="5"
                                 className="form-control mb-1"
                                 value={content}
                                 onChange={(e) => setContent(e.target.value)}
@@ -48,8 +49,8 @@ function OfferForm({ sale, setShowForm }) {
                     ))}
                 </form>
             </div>
-            <Button variant="outline-danger" onClick={() => setShowForm(false)}>Cancel</Button>
-        </>
+            <Button variant="outline-danger my-2" onClick={() => setShowForm(false)}>Cancel</Button>
+        </div>
     )
 }
 

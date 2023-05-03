@@ -8,7 +8,7 @@ function SalesList({ salesPosts, onAddSalesPost, onUpdateSalesPost, onDeleteSale
 
     return (
         <>
-            <h1>Hello from SalesList!</h1>
+            <h1 className="display-3">Sales</h1>
             {showSaleForm ? (
                 <>
                     <SaleForm onAddSalesPost={onAddSalesPost} setShowSaleForm={setShowSaleForm} />
