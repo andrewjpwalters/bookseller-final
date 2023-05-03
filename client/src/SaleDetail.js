@@ -21,6 +21,7 @@ function SaleDetail() {
             {sale ? (
                 <>
                     <h1>{sale.book_title}</h1>
+                    <img src={sale.image_url} alt={sale.book_title} />
                     <p>By {sale.author}</p>
                     <p>${sale.price}</p>
                     <p>{sale.description}</p>
