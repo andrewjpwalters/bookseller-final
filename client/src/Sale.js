@@ -12,6 +12,7 @@ function Sale({
     price,
     description,
     saleUser,
+    image_url,
     onDeleteSalesPost,
     onUpdateSalesPost
 }) {
@@ -39,7 +40,7 @@ function Sale({
 
     return (
         <Card className="text-center my-2 p-2" style={{ width: '30rem' }}>
-            {/* <Card.Img variant="top" src={img_url} alt={name} /> */}
+            <Card.Img variant="top" src={image_url} alt={title} />
             <Card.Body>
                 <Card.Title className="my-3">{title}</Card.Title>
                 <Card.Text>By {author}</Card.Text>

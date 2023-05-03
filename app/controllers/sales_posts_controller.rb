@@ -1,6 +1,6 @@
 class SalesPostsController < ApplicationController
     def index
-        render json: SalesPost.all.to_json(include: [:image])
+        render json: SalesPost.all
       end
           
       def create

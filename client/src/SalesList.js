@@ -36,6 +36,7 @@ function SalesList({ salesPosts, onAddSalesPost, onUpdateSalesPost, onDeleteSale
                     price={sale.price}
                     description={sale.description}
                     saleUser={sale.user}
+                    image_url={sale.image_url}
                     onUpdateSalesPost={onUpdateSalesPost}
                     onDeleteSalesPost={onDeleteSalesPost}
                 />
