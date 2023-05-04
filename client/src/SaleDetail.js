@@ -26,6 +26,10 @@ function SaleDetail() {
                         <p>By {sale.author}</p>
                         <p>${sale.price}</p>
                         <p>{sale.description}</p>
+                        <p>Tags:</p>
+                        {sale.tags.map((tag) => (
+                            <li key={tag.id}>{tag.name}</li>
+                        ))}
                         <Link to={`/profile/${sale.user.id}`}>Seller: {sale.user.username}</Link>
                         <div>
                             {user && user.id !== sale.user.id && <button className="btn btn-outline-dark mt-2" onClick={() => setShowForm(!showForm)}>Make an Offer</button>}
