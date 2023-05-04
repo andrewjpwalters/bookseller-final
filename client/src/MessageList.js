@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { Link } from "react-router-dom";
 import Message from "./Message";
 import NewMessageForm from "./NewMessageForm";
 
@@ -20,6 +21,9 @@ function MessageList({ conversation }) {
     return (
         <div>
             <h3>Messages</h3>
+            <Link to={`/sales/${conversation.sales_post.id}`}>
+                <p>To Sale: {conversation.sales_post.book_title}</p>
+            </Link>
             {messages.map((message) => (
                 <Message
                     key={message.id}
