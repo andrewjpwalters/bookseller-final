@@ -21,8 +21,11 @@ function MessageList({ conversation }) {
     return (
         <div>
             <h3>Messages</h3>
-            <Link to={`/sales/${conversation.sales_post.id}`}>
-                <p>To Sale: {conversation.sales_post.book_title}</p>
+            <Link className="text-reset" to={`/sales/${conversation.sales_post.id}`}>
+                <h5>
+                    Original Listing: {conversation.sales_post.book_title} -
+                    ${conversation.sales_post.price}
+                </h5>
             </Link>
             {messages.map((message) => (
                 <Message
