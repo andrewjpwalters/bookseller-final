@@ -6,11 +6,16 @@ function Message({ content, sender }) {
 
     return (
         <div>
-            <p>{content}</p>
             {user.username === sender ? (
-                <p>Sent by you</p>
+                <>
+                    <p className="fw-bold text-primary">{content}</p>
+                    <p className="fst-italic text-primary">Sent by you</p>
+                </>
             ) : (
-                <p>Sent by {sender}</p>
+                <>
+                    <p className="fw-bold text-danger">{content}</p>
+                    <p className="fst-italic text-danger">Sent by {sender}</p>
+                </>
             )}
         </div>
     )
