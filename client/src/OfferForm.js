@@ -15,6 +15,8 @@ function OfferForm({ sale, setShowForm }) {
             },
             body: JSON.stringify({
                 content,
+                recipient_id: sale.user.id,
+                sales_post_id: sale.id,
             }),
         }).then((r) => {
             if (r.ok) {
