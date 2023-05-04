@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { Button } from "react-bootstrap"
+import { useHistory } from "react-router-dom"
 import Error from "./Error"
 
 function OfferForm({ sale, setShowForm }) {
     const [content, setContent] = useState("")
     const [errors, setErrors] = useState([])
+    const history = useHistory()
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -21,6 +23,9 @@ function OfferForm({ sale, setShowForm }) {
         }).then((r) => {
             if (r.ok) {
                 r.json().then((data) => console.log(data))
+                setContent("")
+                setShowForm(false)
+                history.push("/inbox");
             } else {
                 r.json().then((err) => setErrors(err.errors));
             }
