@@ -30,7 +30,7 @@ function SaleDetail() {
                         <p>Tags:</p>
                         <ul style={{ listStyleType: "none", margin: 0, padding: 0 }}>
                             {sale.tags.map((tag) => (
-                                <li key={tag.id} style={{ display: "inline-block", marginRight: "0.5rem" }}>{tag.name}</li>
+                                <Link to={`/tag/${tag.id}`} key={tag.id} style={{ display: "inline-block", marginRight: "0.5rem" }}>{tag.name}</Link>
                             ))}
                         </ul>
                         <div>

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   patch '/profile/:id', to: 'users#update'
   get '/profile/:id', to: 'users#show'
+  get '/tag/:id', to: 'tags#show'
   post "/signup", to: "users#create"
   get "/me", to: "users#me"
   post "/login", to: "sessions#create"

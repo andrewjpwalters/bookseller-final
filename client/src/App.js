@@ -8,6 +8,7 @@ import Login from './Login'
 import Profile from './Profile'
 import SaleDetail from './SaleDetail'
 import SalesList from "./SalesList";
+import SalesListByTag from "./SalesListByTag";
 import Inbox from "./Inbox";
 
 function App() {
@@ -67,6 +68,9 @@ function App() {
         </Route>
         <Route path="/sales/:id">
           <SaleDetail />
+        </Route>
+        <Route path="/tag/:id">
+          <SalesListByTag />
         </Route>
         <Route exact path="/profile/:id">
           <Profile />
