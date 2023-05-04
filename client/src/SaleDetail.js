@@ -27,19 +27,24 @@ function SaleDetail() {
                         <p>${sale.price}</p>
                         <p>{sale.description}</p>
                         <Link to={`/profile/${sale.user.id}`}>Seller: {sale.user.username}</Link>
+                        <br />
+                        <br />
                         <p>Tags:</p>
                         <ul style={{ listStyleType: "none", margin: 0, padding: 0 }}>
                             {sale.tags.map((tag) => (
                                 <Link to={`/tag/${tag.id}`} key={tag.id} style={{ display: "inline-block", marginRight: "0.5rem" }}>{tag.name}</Link>
                             ))}
                         </ul>
-                        <div>
-                            {user && user.id !== sale.user.id && <button className="btn btn-outline-dark mt-2" onClick={() => setShowForm(!showForm)}>Make an Offer</button>}
-                        </div>
                     </div>
                     <div>
                         {showForm && <OfferForm sale={sale} setShowForm={setShowForm} />}
                     </div>
+                    <div className="text-center">
+                        {user && user.id !== sale.user.id && <button className="btn btn-outline-dark mt-2" onClick={() => setShowForm(!showForm)}>
+                            {showForm ? ("Cancel Offer") : ("Send Offer")}
+                        </button>}
+                    </div>
+                    <br />
                 </div>
             ) : (
                 <p>Loading...</p>

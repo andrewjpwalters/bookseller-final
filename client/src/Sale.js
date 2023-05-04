@@ -47,7 +47,9 @@ function Sale({
                 <Card.Text>By {author}</Card.Text>
                 <Card.Text>${price}</Card.Text>
                 <Card.Text>{description}</Card.Text>
-                <Card.Text>Submitted by {saleUser.username}</Card.Text>
+                <Link to={`/profile/${saleUser.id}`}>Seller: {saleUser.username}</Link>
+                <br />
+                <br />
                 {isEditing ? (
                     <>
                         <EditSaleForm
