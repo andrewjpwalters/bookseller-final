@@ -26,7 +26,6 @@ function SalesListByTag() {
                             <p>{sale.author}</p>
                             <p>${sale.price}</p>
                             <p>{sale.description}</p>
-                            {/* <Link to={`/profile/${sale.user.id}`}>Seller: {sale.user.username}</Link> */}
                         </div>
                     ))}
                 </div>
