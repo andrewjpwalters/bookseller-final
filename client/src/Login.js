@@ -8,7 +8,7 @@ function Login({ onLogin }) {
 
     return (
         <Container>
-            <h1 className="display-1">Bookseller Pro</h1>
+            <h1 className="display-1">BOOKSELLER</h1>
             {showLogin ? (
                 <>
                     <LoginForm onLogin={onLogin} />
