@@ -3,6 +3,7 @@ import { useState, useContext } from 'react';
 import { UserContext } from './context/user';
 import { Link } from 'react-router-dom';
 import EditSaleForm from './EditSaleForm';
+import EditSalePhotoForm from './EditSalePhotoForm';
 import Error from './Error';
 
 function Sale({
@@ -48,14 +49,20 @@ function Sale({
                 <Card.Text>{description}</Card.Text>
                 <Card.Text>Submitted by {saleUser.username}</Card.Text>
                 {isEditing ? (
-                    <EditSaleForm
-                        id={id}
-                        title={title}
-                        author={author}
-                        price={price}
-                        description={description}
-                        onUpdateSalesPost={handleUpdateSalesPost}
-                    />
+                    <>
+                        <EditSaleForm
+                            id={id}
+                            title={title}
+                            author={author}
+                            price={price}
+                            description={description}
+                            onUpdateSalesPost={handleUpdateSalesPost}
+                        />
+                        <EditSalePhotoForm
+                            id={id}
+                            onUpdateSalesPost={handleUpdateSalesPost}
+                        />
+                    </>
                 ) : (
                     <>
                     </>
