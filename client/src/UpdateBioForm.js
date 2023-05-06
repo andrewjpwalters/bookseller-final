@@ -1,27 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Error from "./Error";
 
-function UpdateBioForm({ setIsEditing, setProfileUser, id }) {
-    const [bio, setBio] = useState("");
+function UpdateBioForm({ setIsEditing, profileUser, setProfileUser, id }) {
+    const [bio, setBio] = useState(profileUser.bio);
     const [errors, setErrors] = useState([]);
 
     function handleSubmit(e) {
         e.preventDefault();
+        console.log("Updating bio...");
+
         const formData = new FormData();
         formData.append("bio", bio);
-        fetch(`/profile/${id}`, {
+
+        fetch(`/users/${id}`, {
             method: "PATCH",
             body: formData,
-        }).then((r) => {
-            if (r.ok) {
-                r.json().then((updatedUser) => setProfileUser(updatedUser));
+        })
+            .then((r) => {
+                if (r.ok) {
+                    return r.json();
+                } else {
+                    throw new Error("Failed to update bio");
+                }
+            })
+            .then((updatedUser) => {
+                console.log("Updated user data:", updatedUser);
+                setProfileUser(updatedUser);
                 setBio("");
                 setIsEditing(false);
-            } else {
-                r.json().then((err) => setErrors(err.errors));
-            }
-        });
+            })
+            .catch((error) => {
+                console.log("Error updating bio:", error);
+                setErrors([error.message]);
+            });
     }
+
+    useEffect(() => {
+        console.log("bio state:", bio);
+    }, [bio]);
 
     return (
         <div className="mt-4">
@@ -47,5 +63,6 @@ function UpdateBioForm({ setIsEditing, setProfileUser, id }) {
         </div>
     );
 }
+
 
 export default UpdateBioForm

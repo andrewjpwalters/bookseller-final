@@ -8,7 +8,6 @@ function LoginForm({ onLogin }) {
     const [errors, setErrors] = useState([]);
     const history = useHistory();
 
-
     function handleSubmit(e) {
         e.preventDefault();
         fetch("/login", {
@@ -17,14 +16,22 @@ function LoginForm({ onLogin }) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ username, password }),
-        }).then((r) => {
-            if (r.ok) {
-                r.json().then((user) => onLogin(user));
+        })
+            .then((r) => {
+                if (r.ok) {
+                    return r.json();
+                } else {
+                    throw new Error("Invalid login credentials");
+                }
+            })
+            .then((user) => {
+                onLogin(user);
                 history.push("/");
-            } else {
-                r.json().then((err) => setErrors(err.errors));
-            }
-        });
+            })
+            .catch((error) => {
+                console.error(error);
+                setErrors(["Invalid login credentials"]);
+            });
     }
 
     return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import Error from "./Error";
+import { useHistory } from "react-router-dom";
 
 function SignUpForm({ onLogin }) {
     const [username, setUsername] = useState("");
@@ -11,7 +11,6 @@ function SignUpForm({ onLogin }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        setErrors([]);
         fetch("/signup", {
             method: "POST",
             headers: {
@@ -22,14 +21,22 @@ function SignUpForm({ onLogin }) {
                 password,
                 password_confirmation: passwordConfirmation,
             }),
-        }).then((r) => {
-            if (r.ok) {
-                r.json().then((user) => onLogin(user));
+        })
+            .then((r) => {
+                if (r.ok) {
+                    return r.json();
+                } else {
+                    throw new Error("Failed to sign up");
+                }
+            })
+            .then((user) => {
+                onLogin(user);
                 history.push("/");
-            } else {
-                r.json().then((err) => setErrors(err.errors));
-            }
-        });
+            })
+            .catch((error) => {
+                console.error(error);
+                setErrors(["Failed to sign up"]);
+            });
     }
 
     return (

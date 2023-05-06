@@ -1,26 +1,38 @@
-import { useContext, useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { UserContext } from "./context/user";
-import { Container } from 'react-bootstrap'
+import { Container } from "react-bootstrap";
 import NavBar from "./NavBar";
-import Home from './Home'
-import Login from './Login'
-import Profile from './Profile'
-import SaleDetail from './SaleDetail'
+import Home from "./Home";
+import Login from "./Login";
+import Profile from "./Profile";
+import SaleDetail from "./SaleDetail";
 import SalesList from "./SalesList";
 import SalesListByTag from "./SalesListByTag";
 import Inbox from "./Inbox";
 
 function App() {
-  const { user, setUser } = useContext(UserContext)
-  const [salesPosts, setSalesPosts] = useState([])
+  const { user, setUser } = useContext(UserContext);
+  const [salesPosts, setSalesPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/me").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-      }
-    });
+    fetch("/me")
+      .then((r) => {
+        if (r.ok) {
+          return r.json();
+        } else {
+          throw new Error("Not authorized");
+        }
+      })
+      .then((user) => {
+        setUser(user);
+        setLoading(false);
+      })
+      .catch(() => {
+        setUser(null);
+        setLoading(false);
+      });
   }, [setUser]);
 
   useEffect(() => {
@@ -30,26 +42,41 @@ function App() {
   }, []);
 
   function handleAddSalesPost(newSalesPost) {
-    setSalesPosts([...salesPosts, newSalesPost])
-  };
+    setSalesPosts([...salesPosts, newSalesPost]);
+  }
 
   function handleDeleteSalesPost(id) {
     const updatedSalesPosts = salesPosts.filter((sale) => sale.id !== id);
-    setSalesPosts(updatedSalesPosts)
-  };
+    setSalesPosts(updatedSalesPosts);
+  }
 
   function handleUpdateSalesPost(updatedSalesPost) {
     const updatedSalesPosts = salesPosts.map((sale) => {
       if (sale.id === updatedSalesPost.id) {
-        return updatedSalesPost
+        return updatedSalesPost;
       } else {
-        return sale
+        return sale;
       }
-    })
-    setSalesPosts(updatedSalesPosts)
-  };
+    });
+    setSalesPosts(updatedSalesPosts);
+  }
 
-  if (!user) return <Login onLogin={setUser} />;
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (user === null) {
+    return (
+      <Container>
+        <Switch>
+          <Route exact path="/login">
+            <Login onLogin={setUser} />
+          </Route>
+          <Redirect to="/login" />
+        </Switch>
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -78,7 +105,7 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route path="*">
+        <Route>
           <h1>404 NOT FOUND</h1>
         </Route>
       </Switch>
